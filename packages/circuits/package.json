@@ -1,13 +1,13 @@
 {
-  "name": "@samekh-protocol/circuits",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "scripts": {
-    "build": "./scripts/buildCircuits.sh",
-    "buildOverwrite": "find ./build -type f -not -name '*.ptau' -delete && yarn build"
-  },
-  "dependencies": {
-    "circomlib": "^2.0.5"
-  }
+    "name": "@samekh-protocol/circuits",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "build": "./scripts/buildCircuits.sh",
+        "buildOverwrite": "find ./build -type f -not -name '*.ptau' -delete && yarn build"
+    },
+    "dependencies": {
+        "circomlib": "^2.0.5"
+    }
 }

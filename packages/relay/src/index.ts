@@ -1,14 +1,14 @@
-import express from 'express';
+import express from 'express'
 
-const app = express();
-const PORT = 3001;
+const app = express()
+const PORT = 3001
 
 app.get('/', (req, res) => {
-  res.send('Hello from Relay!');
-});
+    res.send('Hello from Relay!')
+})
 
 // proof -> verify() -> tx
 
 app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
-});
+    console.log(`Server is running at http://localhost:${PORT}`)
+})

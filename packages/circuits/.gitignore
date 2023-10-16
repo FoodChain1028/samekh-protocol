@@ -1,7 +1,4 @@
 dist
 *.ptau
-zksnarkBuild/*
-!*/dataProof.vkey.json
-!*/dataProof.wasm
-!*/dataProof.zkey
-!*/dataProof_main.circom
+build
+zkeyFiles
