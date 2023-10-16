@@ -1,29 +1,29 @@
 {
-    "name": "samekh-protocol",
-    "version": "1.0.0",
-    "main": "index.js",
-    "author": "Fu-Chuan Chung <sh1001309@gmail.com>",
-    "license": "MIT",
-    "private": true,
-    "workspaces": [
-        "packages/*"
-    ],
-    "scripts": {
-        "install": "lerna bootstrap",
-        "build": "lerna run build",
-        "circuits": "yarn workspace @samekh-protocol/circuits",
-        "contracts": "yarn workspace @samekh-protocol/contracts",
-        "frontend": "yarn workspace @samekh-protocol/frontend",
-        "relayer": "yarn workspace @samekh-protocol/relayer",
-        "lint": "prettier .",
-        "lint:fix": "yarn lint --write",
-        "lint:check": "yarn lint --check"
-    },
-    "dependencies": {
-        "prettier": "^3.0.3"
-    },
-    "devDependencies": {
-        "lerna": "6.0.1",
-        "node-fetch": "^3.3.2"
-    }
+  "name": "samekh-protocol",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Fu-Chuan Chung <sh1001309@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "install": "lerna bootstrap",
+    "build": "lerna run build",
+    "circuits": "yarn workspace @samekh-protocol/circuits",
+    "contracts": "yarn workspace @samekh-protocol/contracts",
+    "frontend": "yarn workspace @samekh-protocol/frontend",
+    "relayer": "yarn workspace @samekh-protocol/relayer",
+    "lint": "prettier .",
+    "lint:fix": "yarn lint --write",
+    "lint:check": "yarn lint --check"
+  },
+  "dependencies": {
+    "prettier": "^3.0.3"
+  },
+  "devDependencies": {
+    "lerna": "6.0.1",
+    "node-fetch": "^3.3.2"
+  }
 }
