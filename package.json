@@ -11,10 +11,10 @@
     "scripts": {
         "install": "lerna bootstrap",
         "build": "lerna run build",
-        "circuits": "yarn workspace circuits",
-        "contracts": "yarn workspace contracts",
-        "frontend": "yarn workspace frontend",
-        "relayer": "yarn workspace relayer",
+        "circuits": "yarn workspace @samekh-protocol/circuits",
+        "contracts": "yarn workspace @samekh-protocol/contracts",
+        "frontend": "yarn workspace @samekh-protocol/frontend",
+        "relayer": "yarn workspace @samekh-protocol/relayer",
         "lint": "prettier .",
         "lint:fix": "yarn lint --write",
         "lint:check": "yarn lint --check"

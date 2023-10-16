@@ -7,6 +7,8 @@ app.get('/', (req, res) => {
   res.send('Hello from Relay!');
 });
 
+// proof -> verify() -> tx
+
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
