@@ -2,6 +2,7 @@
 set -e
 
 cd "$(dirname "$0")"
+
 mkdir -p ../build/contracts
 mkdir -p ../build/setup
 
@@ -19,24 +20,10 @@ else
 fi
 
 circuit_dir="../circuits"
-circuit_path=""
-circuit_type=""
-zkeydir="build/../zkeyFiles"
 
-# get the argument input
-# if [ "$1" = "rln" ]; then
-#     echo -e "\033[32mUsing RLN circuit\033[0m"
-#     circuit_name="rln"
-# elif [ "$1" = "withdraw" ]; then
-#     echo -e "\033[32mUsing Withdraw circuit\033[0m"
-#     circuit_name="withdraw"
-# else
-#     echo -e "\033[33mUnrecognized argument"
-#     exit 1
-# fi
-circuit_name="test"
+circuit_name="samekh"
 circuit_path="$circuit_dir/$circuit_name.circom"
-zkeypath="$zkeydir/$circuit_name"
+# zkeypath="$build/$circuit_name"
 
 if ! [ -x "$(command -v circom)" ]; then
     echo -e '\033[31mError: circom is not installed.\033[0m' >&2
@@ -53,48 +40,20 @@ echo -e "\033[36mBuild Path: $PWD\033[0m"
 
 circom --version
 circom $circuit_path --r1cs --wasm --sym
-npx snarkjs r1cs export json build/$circuit_name.r1cs build/$circuit_name.r1cs.json
+npx snarkjs r1cs export json build/$circuit_name.r1cs
+
+cp ${circuit_name}_js/${circuit_name}.wasm ../build
 
 echo -e "\033[36mRunning groth16 trusted setup\033[0m"
 
 npx snarkjs groth16 setup build/$circuit_name.r1cs build/powersOfTau28_hez_final_16.ptau build/setup/circuit_00000.zkey
 
+# for the circuits-based trusted setup (phase 2)
 npx snarkjs zkey contribute build/setup/circuit_00000.zkey build/setup/circuit_00001.zkey --name="First contribution" -v -e="Random entropy"
 npx snarkjs zkey contribute build/setup/circuit_00001.zkey build/setup/circuit_00002.zkey --name="Second contribution" -v -e="Another random entropy"
-npx snarkjs zkey beacon build/setup/circuit_00002.zkey build/setup/final.zkey 0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f 10 -n="Final Beacon phase2"
+npx snarkjs zkey beacon build/setup/circuit_00002.zkey build/$circuit_name.zkey 0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f 10 -n="Final Beacon phase2"
 
 echo -e "Exporting artifacts to zkeyFiles and contracts directory"
 
-mkdir -p $zkeypath
-npx snarkjs zkey export verificationkey build/setup/final.zkey build/$zkeypath/verification_key.json
-npx snarkjs zkey export solidityverifier build/setup/final.zkey build/contracts/verifier.sol
-
-cp $circuit_name\_js/$circuit_name.wasm $zkeypath/circuit.wasm
-cp setup/final.zkey $zkeypath/final.zkey
-
-shasumcmd="shasum -a 256"
-
-config_path="$zkeypath/circuit.config.toml"
-echo -e "[Circuit_Version]" > $config_path
-echo -e "RLN_Version = 2" >> $config_path
-echo -e "RLN_Type = \"$circuit_name\"" >> $config_path
-
-echo -e "" >> $config_path
-
-echo -e "[Circuit_Build]" >> $config_path
-echo -e "Circom_Version = \"$(circom --version)\"" >> $config_path
-echo -e "GitHub_URL = \"$(git config --get remote.origin.url)\""  >> $config_path
-echo -e "Git_Commit = \"$(git describe --always)\"" >> $config_path
-echo -e "Compilation_Time = $(date +%s)" >> $config_path
-
-echo -e "" >> $config_path
-echo -e "[Files]" >> $config_path
-echo -e "Wasm = \"circuit.wasm\"" >> $config_path
-wasm_sha256=$($shasumcmd $zkeypath/circuit.wasm | awk '{print $1}')
-echo -e "Wasm_SHA256SUM = \"$wasm_sha256\"" >> $config_path
-echo -e "Zkey = \"final.zkey\"" >> $config_path
-zkey_sha256=$($shasumcmd $zkeypath/final.zkey | awk '{print $1}')
-echo -e "Zkey_SHA256SUM = \"$zkey_sha256\"" >> $config_path
-echo -e "Verification_Key = \"verification_key.json\"" >> $config_path
-vkey_sha256=$($shasumcmd $zkeypath/verification_key.json | awk '{print $1}')
-echo -e "Verification_Key_SHA256SUM = \"$vkey_sha256\"" >> $config_path
+npx snarkjs zkey export verificationkey build/$circuit_name.zkey build/${circuit_name}_vkey.json
+npx snarkjs zkey export solidityverifier build/$circuit_name.zkey build/contracts/verifier.sol

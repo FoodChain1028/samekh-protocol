@@ -5,9 +5,16 @@
   "license": "MIT",
   "scripts": {
     "build": "./scripts/buildCircuits.sh",
-    "buildOverwrite": "find ./build -type f -not -name '*.ptau' -delete && yarn build"
+    "buildOverwrite": "find ./build -type f -not -name '*.ptau' -delete && yarn build",
+    "test": "mocha -r ts-node/register test/*.test.ts --exit"
   },
   "dependencies": {
-    "circomlib": "^2.0.5"
+    "@zk-kit/incremental-merkle-tree": "^1.1.0",
+    "circomlib": "^2.0.5",
+    "poseidon-lite": "^0.2.0",
+    "snarkjs": "^0.7.1"
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0"
   }
 }

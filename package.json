@@ -23,6 +23,10 @@
     "prettier": "^3.0.3"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.9",
+    "@types/mocha": "^10.0.3",
+    "@types/snarkjs": "^0.7.6",
+    "chai": "^4.3.10",
     "lerna": "6.0.1",
     "node-fetch": "^3.3.2"
   }
