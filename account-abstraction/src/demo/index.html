@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <form>
+        <button id="getAddress">Get address</button>
+        <input type="text" id="signingKey" placeholder="signingKey for CA gen" />
+    </form>
+    <div>
+        <p>user CA address: </p>
+        <p id="userAddress"></p>
+    </div>
+    <form>
+        <button id="postTransfer">Post transfer</button>
+        <input type="text" id="toAddress" placeholder="to address" />
+        <input type="text" id="amount" placeholder="amount of Ether" />
+    </form>
+
+    <script>
+        const getAddressBtn = document.getElementById('getAddress');
+        const postTransferBtn = document.getElementById('postTransfer');
+        const signingKey = document.getElementById('signingKey');
+        const toAddress = document.getElementById('toAddress');
+        const amount = document.getElementById('amount');
+        const baseUrl = 'http://localhost:5000/';
+
+        getAddressBtn.addEventListener("click", getAddress);
+        postTransferBtn.addEventListener("click", postTransfer);
+
+        async function getAddress(e) {
+            e.preventDefault();
+
+            if (signingKey.value == "") { return; }
+            const res = await fetch(baseUrl + 'getAddress', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    signingKey: signingKey.value
+                })
+            })
+            const data = await res.json();
+            document.getElementById('userAddress').innerText = data.address;
+        }
+
+        async function postTransfer(e) {
+            e.preventDefault();
+
+            if (toAddress.value == "") { return; }
+            const res = await fetch(baseUrl + 'postTransfer', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    toAddress: toAddress.value,
+                    amount: amount.value,
+                    signingKey: signingKey.value
+                })
+            })
+        }
+    </script>
+</body>
+</html>
