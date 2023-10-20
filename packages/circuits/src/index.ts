@@ -1,1 +1,1 @@
-export * from './genProof'
+export * from './prover'

@@ -14,7 +14,7 @@
     "circuits": "yarn workspace @samekh-protocol/circuits",
     "contracts": "yarn workspace @samekh-protocol/contracts",
     "frontend": "yarn workspace @samekh-protocol/frontend",
-    "relayer": "yarn workspace @samekh-protocol/relayer",
+    "relay": "yarn workspace @samekh-protocol/relay",
     "lint": "prettier .",
     "lint:fix": "yarn lint --write",
     "lint:check": "yarn lint --check"
