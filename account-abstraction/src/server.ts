@@ -5,7 +5,7 @@ import address from "../scripts/simpleAccount/address";
 import transfer from "../scripts/simpleAccount/transfer";
 
 const app: Express = express();
-const port = 5000;
+const port = 5001;
 
 app.use(express.static(path.join(__dirname, 'demo')));
 app.use(express.json());
