@@ -39,3 +39,79 @@ code {
 .custom-button:hover {
   background-color: #45a049;
 }
+
+/* for banner */
+
+.banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.list-toggle-button {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.list-popup {
+  position: fixed;
+  top: 60px;
+  left: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+}
+
+.list-popup ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list-popup li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.list-popup li:last-child {
+  border-bottom: none;
+}
+
+.list-popup li a {
+  color: #333;
+  text-decoration: none;
+}
+
+/* for pages */
+
+.page-container {
+  margin-top: 80px; /* Adjusted to account for the height of the banner */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 80px); /* Adjusted to account for the height of the banner */
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.sign-up-button {
+  padding: 10px 20px;
+  font-size: 16px;
+}

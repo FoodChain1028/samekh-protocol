@@ -1,4 +1,6 @@
 import User, { UserId } from './contexts/User'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SignUp from './pages/SignUp';
 
 const userId = {
   secret: 12345,
@@ -14,18 +16,17 @@ function App() {
   }
 
   const handleExecute = async () => {
-    const res = await user.execute()
-    console.log(res);
-    
+    // const res = await user.execute()
+    // console.log(res);
   }
 
   return (
-    <div className="App">
-      <button onClick={handleSignUp} className="custom-button">
-        SignUp
-      </button>
-      <button onClick={ handleExecute } className="custom-button">Execute</button>
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={ <SignUp/> } />
+        {/* <Route path='/dashboard' Component={}/> */}
+      </Routes>
+    </Router>
   )
 }
 
