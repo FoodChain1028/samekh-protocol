@@ -12,6 +12,13 @@ code {
     monospace;
 }
 
+.App {
+  display: flex;
+  justify-content: center; /* Centers items on the horizontal axis */
+  align-items: center; /* Centers items on the vertical axis */
+  height: 100vh; /* Takes the full height of the viewport */
+}
+
 .custom-button {
   background-color: #4caf50;
   border: none;

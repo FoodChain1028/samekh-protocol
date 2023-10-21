@@ -4,4 +4,6 @@ build/
 keys
 .env
 
+src/utils/tree/*
+
 *Verifier.sol

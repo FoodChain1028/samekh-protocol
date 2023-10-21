@@ -1,6 +1,9 @@
 import { UserId } from '../contexts/User'
 
-const signup = async (userId: UserId, url: string): Promise<number> => {
+const execute = async (
+    userId: UserId,
+    url: string,
+): Promise<number> => {
   try {
     const res = await fetch(url, {
       method: 'POST',
@@ -12,8 +15,8 @@ const signup = async (userId: UserId, url: string): Promise<number> => {
 
     if (res.ok) {
       console.log('Success!')
-      const { index } = await res.json()
-      return index
+      const { success } = await res.json()
+      return success
     } else {
       console.error('Error sending the request!', await res.text())
       return -1
@@ -24,4 +27,4 @@ const signup = async (userId: UserId, url: string): Promise<number> => {
   }
 }
 
-export { signup }
+export { execute }
