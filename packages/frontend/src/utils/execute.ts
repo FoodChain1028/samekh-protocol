@@ -1,9 +1,6 @@
 import { UserId } from '../contexts/User'
 
-const execute = async (
-    userId: UserId,
-    url: string,
-): Promise<number> => {
+const execute = async (userId: UserId, url: string): Promise<number> => {
   try {
     const res = await fetch(url, {
       method: 'POST',

@@ -26,17 +26,15 @@ app.get('/', (req, res) => {
 const random = () => Math.floor(Math.random() * 100000)
 
 app.post('/api/signup', async (req, res) => {
-  // TODO: integrate with `safe-protocol`
   const { secret } = req.body
-  // return this into BigInt()
   const newUserId = poseidon1([secret])
   tree.insert(newUserId)
   tree.save()
   index += 1
-  console.log('New User Inserted - ', 'index: ', index - 1);
-  
+  console.log('New User Inserted - ', 'index: ', index - 1)
+
   res.json({
-    index: (index - 1),
+    index: index - 1,
   })
 })
 
@@ -52,7 +50,7 @@ app.post('/api/execute', async (req, res) => {
   const { publicSignals, proof } = await prover.genProof('samekh', {
     identitySecret,
     pathElements,
-    identityPathIndex
+    identityPathIndex,
   })
   const isValid = await prover.verifyProof('samekh', publicSignals, proof)
 
@@ -63,7 +61,7 @@ app.post('/api/execute', async (req, res) => {
   } else {
     // 2nd step: execute through this relayer
     res.json({
-      success: true
+      success: true,
     })
   }
 })
