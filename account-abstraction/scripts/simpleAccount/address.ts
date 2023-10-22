@@ -6,7 +6,7 @@ import config from "../../config.json";
 export default async function main(sgk: string) {
   const simpleAccount = await Presets.Builder.SimpleAccount.init(
     new ethers.Wallet(sgk), // sgk = signingKey
-    config.rpcUrl
+    config.rpcUrl,
   );
   const address = simpleAccount.getSender();
 

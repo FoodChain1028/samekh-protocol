@@ -1,42 +1,40 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import { IncrementalMerkleTree } from '@zk-kit/incremental-merkle-tree'
-import { signup } from '../utils/signup'
+import { signup, execute, query } from '../utils'
 
 const endpoint = process.env.REACT_APP_BACKEND_ENDPOINT
 
 export interface UserId {
-  secret: string
+  secret: number | BigInt
   index: number
 }
 
-class User {
-  userId: UserId
+export class User {
+  readonly userId: UserId
 
   constructor(userId: UserId) {
     this.userId = userId
   }
 
-  async signUp(): Promise<boolean> {
+  async signUp(): Promise<number> {
     const url: string = endpoint + 'signup'
-    console.log(url)
-
-    const isSucceeded: boolean = await signup(this.userId, url)
-    return isSucceeded
+    const index: number = await signup(this.userId, url)
+    return index
   }
 
-  // TODO: fetch Tree from backend
-  // fetchTree: async (): Promise<IncrementalMerkleTree> => {
+  setIndex(index: number): void {
+    this.userId.index = index
+  }
 
-  // },
+  async execute(): Promise<any> {
+    const url: string = endpoint + 'execute'
+    const res = await execute(this.userId, url)
+    return res
+  }
 
-  // TODO: genProof based on Tree
-  // genProof: async (
-  //     circuitName: string,
-  //     tree: IncrementalMerkleTree,
-  //     index: number,
-  // ): Promise<any> => {
-
-  // }
+  async query(): Promise<any> {
+    const url: string = endpoint + 'query'
+    const res = await query(this.userId, url)
+    return res
+  }
 }
 
 export default User

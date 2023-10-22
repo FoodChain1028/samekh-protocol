@@ -1,5 +1,5 @@
-import { newMockEvent } from "matchstick-as"
-import { ethereum, Bytes, Address, BigInt } from "@graphprotocol/graph-ts"
+import { newMockEvent } from 'matchstick-as'
+import { ethereum, Bytes, Address, BigInt } from '@graphprotocol/graph-ts'
 import {
   AccountDeployed,
   BeforeExecution,
@@ -10,14 +10,14 @@ import {
   StakeWithdrawn,
   UserOperationEvent,
   UserOperationRevertReason,
-  Withdrawn
-} from "../generated/Contract/Contract"
+  Withdrawn,
+} from '../generated/Contract/Contract'
 
 export function createAccountDeployedEvent(
   userOpHash: Bytes,
   sender: Address,
   factory: Address,
-  paymaster: Address
+  paymaster: Address,
 ): AccountDeployed {
   let accountDeployedEvent = changetype<AccountDeployed>(newMockEvent())
 
@@ -25,18 +25,18 @@ export function createAccountDeployedEvent(
 
   accountDeployedEvent.parameters.push(
     new ethereum.EventParam(
-      "userOpHash",
-      ethereum.Value.fromFixedBytes(userOpHash)
-    )
+      'userOpHash',
+      ethereum.Value.fromFixedBytes(userOpHash),
+    ),
   )
   accountDeployedEvent.parameters.push(
-    new ethereum.EventParam("sender", ethereum.Value.fromAddress(sender))
+    new ethereum.EventParam('sender', ethereum.Value.fromAddress(sender)),
   )
   accountDeployedEvent.parameters.push(
-    new ethereum.EventParam("factory", ethereum.Value.fromAddress(factory))
+    new ethereum.EventParam('factory', ethereum.Value.fromAddress(factory)),
   )
   accountDeployedEvent.parameters.push(
-    new ethereum.EventParam("paymaster", ethereum.Value.fromAddress(paymaster))
+    new ethereum.EventParam('paymaster', ethereum.Value.fromAddress(paymaster)),
   )
 
   return accountDeployedEvent
@@ -52,39 +52,39 @@ export function createBeforeExecutionEvent(): BeforeExecution {
 
 export function createDepositedEvent(
   account: Address,
-  totalDeposit: BigInt
+  totalDeposit: BigInt,
 ): Deposited {
   let depositedEvent = changetype<Deposited>(newMockEvent())
 
   depositedEvent.parameters = new Array()
 
   depositedEvent.parameters.push(
-    new ethereum.EventParam("account", ethereum.Value.fromAddress(account))
+    new ethereum.EventParam('account', ethereum.Value.fromAddress(account)),
   )
   depositedEvent.parameters.push(
     new ethereum.EventParam(
-      "totalDeposit",
-      ethereum.Value.fromUnsignedBigInt(totalDeposit)
-    )
+      'totalDeposit',
+      ethereum.Value.fromUnsignedBigInt(totalDeposit),
+    ),
   )
 
   return depositedEvent
 }
 
 export function createSignatureAggregatorChangedEvent(
-  aggregator: Address
+  aggregator: Address,
 ): SignatureAggregatorChanged {
   let signatureAggregatorChangedEvent = changetype<SignatureAggregatorChanged>(
-    newMockEvent()
+    newMockEvent(),
   )
 
   signatureAggregatorChangedEvent.parameters = new Array()
 
   signatureAggregatorChangedEvent.parameters.push(
     new ethereum.EventParam(
-      "aggregator",
-      ethereum.Value.fromAddress(aggregator)
-    )
+      'aggregator',
+      ethereum.Value.fromAddress(aggregator),
+    ),
   )
 
   return signatureAggregatorChangedEvent
@@ -93,26 +93,26 @@ export function createSignatureAggregatorChangedEvent(
 export function createStakeLockedEvent(
   account: Address,
   totalStaked: BigInt,
-  unstakeDelaySec: BigInt
+  unstakeDelaySec: BigInt,
 ): StakeLocked {
   let stakeLockedEvent = changetype<StakeLocked>(newMockEvent())
 
   stakeLockedEvent.parameters = new Array()
 
   stakeLockedEvent.parameters.push(
-    new ethereum.EventParam("account", ethereum.Value.fromAddress(account))
+    new ethereum.EventParam('account', ethereum.Value.fromAddress(account)),
   )
   stakeLockedEvent.parameters.push(
     new ethereum.EventParam(
-      "totalStaked",
-      ethereum.Value.fromUnsignedBigInt(totalStaked)
-    )
+      'totalStaked',
+      ethereum.Value.fromUnsignedBigInt(totalStaked),
+    ),
   )
   stakeLockedEvent.parameters.push(
     new ethereum.EventParam(
-      "unstakeDelaySec",
-      ethereum.Value.fromUnsignedBigInt(unstakeDelaySec)
-    )
+      'unstakeDelaySec',
+      ethereum.Value.fromUnsignedBigInt(unstakeDelaySec),
+    ),
   )
 
   return stakeLockedEvent
@@ -120,20 +120,20 @@ export function createStakeLockedEvent(
 
 export function createStakeUnlockedEvent(
   account: Address,
-  withdrawTime: BigInt
+  withdrawTime: BigInt,
 ): StakeUnlocked {
   let stakeUnlockedEvent = changetype<StakeUnlocked>(newMockEvent())
 
   stakeUnlockedEvent.parameters = new Array()
 
   stakeUnlockedEvent.parameters.push(
-    new ethereum.EventParam("account", ethereum.Value.fromAddress(account))
+    new ethereum.EventParam('account', ethereum.Value.fromAddress(account)),
   )
   stakeUnlockedEvent.parameters.push(
     new ethereum.EventParam(
-      "withdrawTime",
-      ethereum.Value.fromUnsignedBigInt(withdrawTime)
-    )
+      'withdrawTime',
+      ethereum.Value.fromUnsignedBigInt(withdrawTime),
+    ),
   )
 
   return stakeUnlockedEvent
@@ -142,23 +142,26 @@ export function createStakeUnlockedEvent(
 export function createStakeWithdrawnEvent(
   account: Address,
   withdrawAddress: Address,
-  amount: BigInt
+  amount: BigInt,
 ): StakeWithdrawn {
   let stakeWithdrawnEvent = changetype<StakeWithdrawn>(newMockEvent())
 
   stakeWithdrawnEvent.parameters = new Array()
 
   stakeWithdrawnEvent.parameters.push(
-    new ethereum.EventParam("account", ethereum.Value.fromAddress(account))
+    new ethereum.EventParam('account', ethereum.Value.fromAddress(account)),
   )
   stakeWithdrawnEvent.parameters.push(
     new ethereum.EventParam(
-      "withdrawAddress",
-      ethereum.Value.fromAddress(withdrawAddress)
-    )
+      'withdrawAddress',
+      ethereum.Value.fromAddress(withdrawAddress),
+    ),
   )
   stakeWithdrawnEvent.parameters.push(
-    new ethereum.EventParam("amount", ethereum.Value.fromUnsignedBigInt(amount))
+    new ethereum.EventParam(
+      'amount',
+      ethereum.Value.fromUnsignedBigInt(amount),
+    ),
   )
 
   return stakeWithdrawnEvent
@@ -171,7 +174,7 @@ export function createUserOperationEventEvent(
   nonce: BigInt,
   success: boolean,
   actualGasCost: BigInt,
-  actualGasUsed: BigInt
+  actualGasUsed: BigInt,
 ): UserOperationEvent {
   let userOperationEventEvent = changetype<UserOperationEvent>(newMockEvent())
 
@@ -179,33 +182,33 @@ export function createUserOperationEventEvent(
 
   userOperationEventEvent.parameters.push(
     new ethereum.EventParam(
-      "userOpHash",
-      ethereum.Value.fromFixedBytes(userOpHash)
-    )
+      'userOpHash',
+      ethereum.Value.fromFixedBytes(userOpHash),
+    ),
   )
   userOperationEventEvent.parameters.push(
-    new ethereum.EventParam("sender", ethereum.Value.fromAddress(sender))
+    new ethereum.EventParam('sender', ethereum.Value.fromAddress(sender)),
   )
   userOperationEventEvent.parameters.push(
-    new ethereum.EventParam("paymaster", ethereum.Value.fromAddress(paymaster))
+    new ethereum.EventParam('paymaster', ethereum.Value.fromAddress(paymaster)),
   )
   userOperationEventEvent.parameters.push(
-    new ethereum.EventParam("nonce", ethereum.Value.fromUnsignedBigInt(nonce))
+    new ethereum.EventParam('nonce', ethereum.Value.fromUnsignedBigInt(nonce)),
   )
   userOperationEventEvent.parameters.push(
-    new ethereum.EventParam("success", ethereum.Value.fromBoolean(success))
-  )
-  userOperationEventEvent.parameters.push(
-    new ethereum.EventParam(
-      "actualGasCost",
-      ethereum.Value.fromUnsignedBigInt(actualGasCost)
-    )
+    new ethereum.EventParam('success', ethereum.Value.fromBoolean(success)),
   )
   userOperationEventEvent.parameters.push(
     new ethereum.EventParam(
-      "actualGasUsed",
-      ethereum.Value.fromUnsignedBigInt(actualGasUsed)
-    )
+      'actualGasCost',
+      ethereum.Value.fromUnsignedBigInt(actualGasCost),
+    ),
+  )
+  userOperationEventEvent.parameters.push(
+    new ethereum.EventParam(
+      'actualGasUsed',
+      ethereum.Value.fromUnsignedBigInt(actualGasUsed),
+    ),
   )
 
   return userOperationEventEvent
@@ -215,31 +218,31 @@ export function createUserOperationRevertReasonEvent(
   userOpHash: Bytes,
   sender: Address,
   nonce: BigInt,
-  revertReason: Bytes
+  revertReason: Bytes,
 ): UserOperationRevertReason {
   let userOperationRevertReasonEvent = changetype<UserOperationRevertReason>(
-    newMockEvent()
+    newMockEvent(),
   )
 
   userOperationRevertReasonEvent.parameters = new Array()
 
   userOperationRevertReasonEvent.parameters.push(
     new ethereum.EventParam(
-      "userOpHash",
-      ethereum.Value.fromFixedBytes(userOpHash)
-    )
+      'userOpHash',
+      ethereum.Value.fromFixedBytes(userOpHash),
+    ),
   )
   userOperationRevertReasonEvent.parameters.push(
-    new ethereum.EventParam("sender", ethereum.Value.fromAddress(sender))
+    new ethereum.EventParam('sender', ethereum.Value.fromAddress(sender)),
   )
   userOperationRevertReasonEvent.parameters.push(
-    new ethereum.EventParam("nonce", ethereum.Value.fromUnsignedBigInt(nonce))
+    new ethereum.EventParam('nonce', ethereum.Value.fromUnsignedBigInt(nonce)),
   )
   userOperationRevertReasonEvent.parameters.push(
     new ethereum.EventParam(
-      "revertReason",
-      ethereum.Value.fromBytes(revertReason)
-    )
+      'revertReason',
+      ethereum.Value.fromBytes(revertReason),
+    ),
   )
 
   return userOperationRevertReasonEvent
@@ -248,23 +251,26 @@ export function createUserOperationRevertReasonEvent(
 export function createWithdrawnEvent(
   account: Address,
   withdrawAddress: Address,
-  amount: BigInt
+  amount: BigInt,
 ): Withdrawn {
   let withdrawnEvent = changetype<Withdrawn>(newMockEvent())
 
   withdrawnEvent.parameters = new Array()
 
   withdrawnEvent.parameters.push(
-    new ethereum.EventParam("account", ethereum.Value.fromAddress(account))
+    new ethereum.EventParam('account', ethereum.Value.fromAddress(account)),
   )
   withdrawnEvent.parameters.push(
     new ethereum.EventParam(
-      "withdrawAddress",
-      ethereum.Value.fromAddress(withdrawAddress)
-    )
+      'withdrawAddress',
+      ethereum.Value.fromAddress(withdrawAddress),
+    ),
   )
   withdrawnEvent.parameters.push(
-    new ethereum.EventParam("amount", ethereum.Value.fromUnsignedBigInt(amount))
+    new ethereum.EventParam(
+      'amount',
+      ethereum.Value.fromUnsignedBigInt(amount),
+    ),
   )
 
   return withdrawnEvent

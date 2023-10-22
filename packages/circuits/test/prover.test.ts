@@ -8,12 +8,10 @@ describe(`Prover`, function () {
   this.timeout(30000)
 
   it('should generate a proof', async function () {
-    const tree = new IncrementalMerkleTree(20)
+    const tree = new IncrementalMerkleTree(15)
     const index = 50
-    const leaves = [] as any
     for (let x = 0; x < 100; x++) {
       const leaf = random()
-      leaves.push(leaf)
       tree.insert(leaf)
     }
 
@@ -31,12 +29,10 @@ describe(`Prover`, function () {
   })
 
   it('should verify with a valid proof', async function () {
-    const tree = new IncrementalMerkleTree(20)
+    const tree = new IncrementalMerkleTree(15)
     const index = 50
-    const leaves = [] as any
     for (let x = 0; x < 100; x++) {
       const leaf = random()
-      leaves.push(leaf)
       tree.insert(leaf)
     }
 

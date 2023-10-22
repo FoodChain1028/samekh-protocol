@@ -6,20 +6,20 @@ import config from "../../config.json";
 
 export default async function main(opts: CLIOpts): Promise<void> {
   const calls = await createCalls(
-    new ethers.providers.JsonRpcProvider(config.rpcUrl)
+    new ethers.providers.JsonRpcProvider(config.rpcUrl),
   );
 
   console.log(`Building UserOperation...`);
   const paymasterMiddleware = opts.withPM
     ? Presets.Middleware.verifyingPaymaster(
         config.paymaster.rpcUrl,
-        config.paymaster.context
+        config.paymaster.context,
       )
     : undefined;
   const kernel = await Presets.Builder.Kernel.init(
     new ethers.Wallet(config.signingKey),
     config.rpcUrl,
-    { paymasterMiddleware, overrideBundlerRpc: opts.overrideBundlerRpc }
+    { paymasterMiddleware, overrideBundlerRpc: opts.overrideBundlerRpc },
   );
   const client = await Client.init(config.rpcUrl, {
     overrideBundlerRpc: opts.overrideBundlerRpc,
@@ -30,7 +30,7 @@ export default async function main(opts: CLIOpts): Promise<void> {
     {
       dryRun: opts.dryRun,
       onBuild: (op) => console.log("Signed UserOperation:", op),
-    }
+    },
   );
   console.log(`UserOpHash: ${res.userOpHash}`);
 

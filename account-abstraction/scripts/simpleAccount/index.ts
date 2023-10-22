@@ -11,7 +11,7 @@ const program = new Command();
 program
   .name("ERC-4337 SimpleAccount")
   .description(
-    "A collection of example scripts for working with ERC-4337 SimpleAccount.sol"
+    "A collection of example scripts for working with ERC-4337 SimpleAccount.sol",
   )
   .version("0.1.0");
 
@@ -25,12 +25,12 @@ program
   .description("Transfer ETH")
   .option(
     "-dr, --dryRun",
-    "Builds the UserOperation without calling eth_sendUserOperation"
+    "Builds the UserOperation without calling eth_sendUserOperation",
   )
   .option("-pm, --withPaymaster", "Use a paymaster for this transaction")
   .option(
     "-b, --overrideBundlerRpc <url>",
-    "Route all bundler RPC method calls to a separate URL"
+    "Route all bundler RPC method calls to a separate URL",
   )
   .requiredOption("-t, --to <address>", "The recipient address")
   .requiredOption("-amt, --amount <eth>", "Amount in ETH to transfer")
@@ -39,7 +39,7 @@ program
       dryRun: Boolean(opts.dryRun),
       withPM: Boolean(opts.withPaymaster),
       overrideBundlerRpc: opts.overrideBundlerRpc,
-    })
+    }),
   );
 
 program
@@ -47,12 +47,12 @@ program
   .description("Transfer ERC-20 token")
   .option(
     "-dr, --dryRun",
-    "Builds the UserOperation without calling eth_sendUserOperation"
+    "Builds the UserOperation without calling eth_sendUserOperation",
   )
   .option("-pm, --withPaymaster", "Use a paymaster for this transaction")
   .option(
     "-b, --overrideBundlerRpc <url>",
-    "Route all bundler RPC method calls to a separate URL"
+    "Route all bundler RPC method calls to a separate URL",
   )
   .requiredOption("-tkn, --token <address>", "The token address")
   .requiredOption("-t, --to <address>", "The recipient address")
@@ -62,7 +62,7 @@ program
       dryRun: Boolean(opts.dryRun),
       withPM: Boolean(opts.withPaymaster),
       overrideBundlerRpc: opts.overrideBundlerRpc,
-    })
+    }),
   );
 
 program
@@ -70,12 +70,12 @@ program
   .description("Approve spender for ERC-20 token")
   .option(
     "-dr, --dryRun",
-    "Builds the UserOperation without calling eth_sendUserOperation"
+    "Builds the UserOperation without calling eth_sendUserOperation",
   )
   .option("-pm, --withPaymaster", "Use a paymaster for this transaction")
   .option(
     "-b, --overrideBundlerRpc <url>",
-    "Route all bundler RPC method calls to a separate URL"
+    "Route all bundler RPC method calls to a separate URL",
   )
   .requiredOption("-tkn, --token <address>", "The token address")
   .requiredOption("-s, --spender <address>", "The spender address")
@@ -85,7 +85,7 @@ program
       dryRun: Boolean(opts.dryRun),
       withPM: Boolean(opts.withPaymaster),
       overrideBundlerRpc: opts.overrideBundlerRpc,
-    })
+    }),
   );
 
 program
@@ -93,17 +93,17 @@ program
   .description("Batch transfer ERC-20 token")
   .option(
     "-dr, --dryRun",
-    "Builds the UserOperation without calling eth_sendUserOperation"
+    "Builds the UserOperation without calling eth_sendUserOperation",
   )
   .option("-pm, --withPaymaster", "Use a paymaster for this transaction")
   .option(
     "-b, --overrideBundlerRpc <url>",
-    "Route all bundler RPC method calls to a separate URL"
+    "Route all bundler RPC method calls to a separate URL",
   )
   .requiredOption("-tkn, --token <address>", "The token address")
   .requiredOption(
     "-t, --to <addresses>",
-    "Comma separated list of recipient addresses"
+    "Comma separated list of recipient addresses",
   )
   .requiredOption("-amt, --amount <decimal>", "Amount of the token to transfer")
   .action(async (opts) =>
@@ -111,7 +111,7 @@ program
       dryRun: Boolean(opts.dryRun),
       withPM: Boolean(opts.withPaymaster),
       overrideBundlerRpc: opts.overrideBundlerRpc,
-    })
+    }),
   );
 
 program.parse();

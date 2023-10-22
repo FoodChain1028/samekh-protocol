@@ -13,7 +13,7 @@ enum TransactionType {
 
 const createTransaction = async (
   provider: ethers.providers.JsonRpcProvider,
-  type: TransactionType
+  type: TransactionType,
 ): Promise<ICall> => {
   switch (type) {
     case TransactionType.transfer:
@@ -29,7 +29,7 @@ const createTransaction = async (
 
 export const createCalls = async (
   provider: ethers.providers.JsonRpcProvider,
-  calls: Array<ICall> = []
+  calls: Array<ICall> = [],
 ): Promise<Array<ICall>> => {
   console.log(`Transaction ${calls.length + 1}:`);
   const call = await createTransaction(
@@ -54,7 +54,7 @@ export const createCalls = async (
             "Approve an account to transfer your ERC20 tokens up to a limit.",
         },
       ],
-    })
+    }),
   );
 
   const hasMore = await select({

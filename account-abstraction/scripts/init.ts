@@ -16,7 +16,7 @@ const CONFIG_PATH = path.resolve(__dirname, "../config.json");
 async function main() {
   return fs.writeFile(
     CONFIG_PATH,
-    prettier.format(JSON.stringify(INIT_CONFIG, null, 2), { parser: "json" })
+    prettier.format(JSON.stringify(INIT_CONFIG, null, 2), { parser: "json" }),
   );
 }
 

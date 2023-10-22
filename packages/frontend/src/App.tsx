@@ -1,23 +1,20 @@
 import User, { UserId } from './contexts/User'
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import SignUp from './pages/SignUp'
+import Login from './pages/Login'
+import Dashboard from './pages/Dashboard'
 import TransactionList from './TransactionList'
-function App() {
-  const handleButtonClick = async () => {
-    const userId = {
-      secret: 'secret',
-      index: 0,
-    } as UserId
-    const user = new User(userId)
-    const isSucceeded = await user.signUp()
-    console.log(isSucceeded)
-  }
 
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <button onClick={handleButtonClick} className="custom-button">
-        SignUp
-      </button>
-    </div>
-
+    <Router>
+      <Routes>
+        <Route path="/" element={<SignUp />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Router>
   )
 }
 

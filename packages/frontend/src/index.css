@@ -12,6 +12,13 @@ code {
     monospace;
 }
 
+.App {
+  display: flex;
+  justify-content: center; /* Centers items on the horizontal axis */
+  align-items: center; /* Centers items on the vertical axis */
+  height: 100vh; /* Takes the full height of the viewport */
+}
+
 .custom-button {
   background-color: #4caf50;
   border: none;
@@ -30,4 +37,192 @@ code {
 
 .custom-button:hover {
   background-color: #45a049;
+}
+
+/* for banner */
+
+.banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.list-toggle-button {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.list-popup {
+  position: fixed;
+  top: 60px;
+  left: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+}
+
+.list-popup ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list-popup li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.list-popup li:last-child {
+  border-bottom: none;
+}
+
+.list-popup li a {
+  color: #333;
+  text-decoration: none;
+}
+
+/* for pages */
+
+.page-header {
+  text-align: center;
+  margin-top: 20px; /* Adjust as needed */
+}
+
+.page-container {
+  margin-top: 80px; /* Adjusted to account for the height of the banner */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(
+    100vh - 80px
+  ); /* Adjusted to account for the height of the banner */
+}
+
+.page-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #008cba; /* Change color to your preference */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.page-button:hover {
+  background-color: #005f5f; /* Darker shade for hover effect */
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.sign-up-button {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(50vh);
+  margin-top: -60px; /* Adjust as needed to bring form up a bit */
+}
+
+.login-link {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.login-link a {
+  color: #008cba; /* Change color to your preference */
+  text-decoration: none;
+}
+
+.input-field {
+  width: 80%; /* Adjust as needed */
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px; /* Larger font size */
+  transition: border-color 0.3s; /* Smooth transition on focus */
+}
+
+.input-field:focus {
+  border-color: #008cba; /* Change color to your preference */
+}
+
+/* for querys data */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-header {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.modal-content {
+  font-size: 18px;
+}
+
+.modal-content p {
+  margin: 5px 0;
+}
+
+.record-container {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 4px;
+  width: 80%; /* Adjust as needed */
+  background-color: #f9f9f9; /* Light grey background */
 }

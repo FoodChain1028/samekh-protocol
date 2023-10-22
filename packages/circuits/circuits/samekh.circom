@@ -23,5 +23,5 @@ template Samekh (DEPTH) {
     );
 }
 
-component main = Samekh(20);
+component main = Samekh(15);
 

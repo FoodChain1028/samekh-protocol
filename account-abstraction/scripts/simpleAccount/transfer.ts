@@ -4,17 +4,22 @@ import { CLIOpts } from "../../src";
 // @ts-ignore
 import config from "../../config.json";
 
-export default async function main(t: string, amt: string, sgk: string, opts: CLIOpts) {
+export default async function main(
+  t: string,
+  amt: string,
+  sgk: string,
+  opts: CLIOpts,
+) {
   const paymasterMiddleware = opts.withPM
     ? Presets.Middleware.verifyingPaymaster(
         config.paymaster.rpcUrl,
-        config.paymaster.context
+        config.paymaster.context,
       )
     : undefined;
   const simpleAccount = await Presets.Builder.SimpleAccount.init(
     new ethers.Wallet(sgk),
     config.rpcUrl,
-    { paymasterMiddleware, overrideBundlerRpc: opts.overrideBundlerRpc }
+    { paymasterMiddleware, overrideBundlerRpc: opts.overrideBundlerRpc },
   );
   const client = await Client.init(config.rpcUrl, {
     overrideBundlerRpc: opts.overrideBundlerRpc,
@@ -27,7 +32,7 @@ export default async function main(t: string, amt: string, sgk: string, opts: CL
     {
       dryRun: opts.dryRun,
       onBuild: (op) => console.log("Signed UserOperation:", op),
-    }
+    },
   );
   console.log(`UserOpHash: ${res.userOpHash}`);
 
@@ -38,7 +43,7 @@ export default async function main(t: string, amt: string, sgk: string, opts: CL
   const result = {
     userOpHash: res.userOpHash,
     transactionHash: ev?.transactionHash ?? null,
-  }
+  };
 
   return result;
 }

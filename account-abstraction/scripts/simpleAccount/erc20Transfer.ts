@@ -9,18 +9,18 @@ export default async function main(
   tkn: string,
   t: string,
   amt: string,
-  opts: CLIOpts
+  opts: CLIOpts,
 ) {
   const paymasterMiddleware = opts.withPM
     ? Presets.Middleware.verifyingPaymaster(
         config.paymaster.rpcUrl,
-        config.paymaster.context
+        config.paymaster.context,
       )
     : undefined;
   const simpleAccount = await Presets.Builder.SimpleAccount.init(
     new ethers.Wallet(config.signingKey),
     config.rpcUrl,
-    { paymasterMiddleware, overrideBundlerRpc: opts.overrideBundlerRpc }
+    { paymasterMiddleware, overrideBundlerRpc: opts.overrideBundlerRpc },
   );
   const client = await Client.init(config.rpcUrl, {
     overrideBundlerRpc: opts.overrideBundlerRpc,
@@ -41,12 +41,12 @@ export default async function main(
     simpleAccount.execute(
       erc20.address,
       0,
-      erc20.interface.encodeFunctionData("transfer", [to, amount])
+      erc20.interface.encodeFunctionData("transfer", [to, amount]),
     ),
     {
       dryRun: opts.dryRun,
       onBuild: (op) => console.log("Signed UserOperation:", op),
-    }
+    },
   );
   console.log(`UserOpHash: ${res.userOpHash}`);
 

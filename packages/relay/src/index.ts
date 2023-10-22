@@ -1,6 +1,7 @@
 import express from 'express'
-import { IncrementalMerkleTree } from './verifyProof'
-import { verifyProof, genProof } from './verifyProof'
+import { IncrementalMerkleTree, replacer } from './utils/IncrementalMerkleTree'
+import { prover } from './utils/prover'
+import { poseidon1 } from 'poseidon-lite'
 
 // to break the cors policy
 const cors = require('cors')
@@ -9,6 +10,9 @@ const corsOption = {
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   allowedHeaders: ['Content-Type', 'Authorization'],
 }
+
+const tree = new IncrementalMerkleTree(15)
+var index = 0
 
 const app = express()
 app.use(cors(corsOption))
@@ -21,21 +25,72 @@ app.get('/', (req, res) => {
 
 const random = () => Math.floor(Math.random() * 100000)
 
-// proof -> verify() -> tx
-app.post('/api/verifyproof', async (req, res) => {
-  console.log(req.body)
-  // const isValid = await verifyProof('samekh', publicSignals, proof)
-  // console.log(isValid);
+app.post('/api/signup', async (req, res) => {
+  const { secret } = req.body
+  const newUserId = poseidon1([secret])
+  tree.insert(newUserId)
+  tree.save()
+  index += 1
+  console.log('New User Inserted - ', 'index: ', index - 1)
+
   res.json({
-    message: 'Hellllllllllo!',
+    index: index - 1,
   })
 })
 
-app.post('/api/signup', async (req, res) => {
-  console.log(req.body)
-  res.json({
-    message: Boolean(true),
+// proof --(1st step)-> verify() --(2nd step)--> tx
+app.post('/api/execute', async (req, res) => {
+  // 1st step: verify the proof
+  const { secret, index } = req.body
+  const userIndex = index
+  const treeProof = tree.createProof(userIndex)
+  const identitySecret = poseidon1([secret])
+  const pathElements = treeProof.siblings
+  const identityPathIndex = treeProof.pathIndices
+  const { publicSignals, proof } = await prover.genProof('samekh', {
+    identitySecret,
+    pathElements,
+    identityPathIndex,
   })
+  const isValid = await prover.verifyProof('samekh', publicSignals, proof)
+
+  if (!isValid) {
+    res.status(400).json({
+      error: 'Invalid proof',
+    })
+  } else {
+    // 2nd step: execute through this relayer
+    res.json({
+      success: true,
+    })
+  }
+})
+
+app.post('/api/query', async (req, res) => {
+  // verify the identity first
+  const { secret, index } = req.body
+  const userIndex = index
+  const treeProof = tree.createProof(userIndex)
+  const identitySecret = poseidon1([secret])
+  const pathElements = treeProof.siblings
+  const identityPathIndex = treeProof.pathIndices
+  const { publicSignals, proof } = await prover.genProof('samekh', {
+    identitySecret,
+    pathElements,
+    identityPathIndex,
+  })
+  const isValid = await prover.verifyProof('samekh', publicSignals, proof)
+
+  if (!isValid) {
+    res.status(400).json({
+      error: 'Invalid proof',
+    })
+  } else {
+    res.json({
+      success: true,
+      account: '0xa5393e569382599f0c3cf1ea5d8d4a1840871a31',
+    })
+  }
 })
 
 app.listen(PORT, () => {

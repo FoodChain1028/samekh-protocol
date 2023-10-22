@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import { ERC20_ABI } from "../abi";
 
 export default async function main(
-  provider: ethers.providers.JsonRpcProvider
+  provider: ethers.providers.JsonRpcProvider,
 ): Promise<ICall> {
   const token = await input({
     message: "Enter token address",

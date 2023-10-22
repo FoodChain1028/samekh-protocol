@@ -8,8 +8,8 @@ import {
   StakeWithdrawn as StakeWithdrawnEvent,
   UserOperationEvent as UserOperationEventEvent,
   UserOperationRevertReason as UserOperationRevertReasonEvent,
-  Withdrawn as WithdrawnEvent
-} from "../generated/Contract/Contract"
+  Withdrawn as WithdrawnEvent,
+} from '../generated/Contract/Contract'
 import {
   AccountDeployed,
   BeforeExecution,
@@ -20,12 +20,12 @@ import {
   StakeWithdrawn,
   UserOperationEvent,
   UserOperationRevertReason,
-  Withdrawn
-} from "../generated/schema"
+  Withdrawn,
+} from '../generated/schema'
 
 export function handleAccountDeployed(event: AccountDeployedEvent): void {
   let entity = new AccountDeployed(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.userOpHash = event.params.userOpHash
   entity.sender = event.params.sender
@@ -41,7 +41,7 @@ export function handleAccountDeployed(event: AccountDeployedEvent): void {
 
 export function handleBeforeExecution(event: BeforeExecutionEvent): void {
   let entity = new BeforeExecution(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
 
   entity.blockNumber = event.block.number
@@ -53,7 +53,7 @@ export function handleBeforeExecution(event: BeforeExecutionEvent): void {
 
 export function handleDeposited(event: DepositedEvent): void {
   let entity = new Deposited(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.account = event.params.account
   entity.totalDeposit = event.params.totalDeposit
@@ -66,10 +66,10 @@ export function handleDeposited(event: DepositedEvent): void {
 }
 
 export function handleSignatureAggregatorChanged(
-  event: SignatureAggregatorChangedEvent
+  event: SignatureAggregatorChangedEvent,
 ): void {
   let entity = new SignatureAggregatorChanged(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.aggregator = event.params.aggregator
 
@@ -82,7 +82,7 @@ export function handleSignatureAggregatorChanged(
 
 export function handleStakeLocked(event: StakeLockedEvent): void {
   let entity = new StakeLocked(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.account = event.params.account
   entity.totalStaked = event.params.totalStaked
@@ -97,7 +97,7 @@ export function handleStakeLocked(event: StakeLockedEvent): void {
 
 export function handleStakeUnlocked(event: StakeUnlockedEvent): void {
   let entity = new StakeUnlocked(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.account = event.params.account
   entity.withdrawTime = event.params.withdrawTime
@@ -111,7 +111,7 @@ export function handleStakeUnlocked(event: StakeUnlockedEvent): void {
 
 export function handleStakeWithdrawn(event: StakeWithdrawnEvent): void {
   let entity = new StakeWithdrawn(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.account = event.params.account
   entity.withdrawAddress = event.params.withdrawAddress
@@ -126,7 +126,7 @@ export function handleStakeWithdrawn(event: StakeWithdrawnEvent): void {
 
 export function handleUserOperationEvent(event: UserOperationEventEvent): void {
   let entity = new UserOperationEvent(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.userOpHash = event.params.userOpHash
   entity.sender = event.params.sender
@@ -144,10 +144,10 @@ export function handleUserOperationEvent(event: UserOperationEventEvent): void {
 }
 
 export function handleUserOperationRevertReason(
-  event: UserOperationRevertReasonEvent
+  event: UserOperationRevertReasonEvent,
 ): void {
   let entity = new UserOperationRevertReason(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.userOpHash = event.params.userOpHash
   entity.sender = event.params.sender
@@ -163,7 +163,7 @@ export function handleUserOperationRevertReason(
 
 export function handleWithdrawn(event: WithdrawnEvent): void {
   let entity = new Withdrawn(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.account = event.params.account
   entity.withdrawAddress = event.params.withdrawAddress
