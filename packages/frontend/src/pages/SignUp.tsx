@@ -1,61 +1,73 @@
-import React, { useEffect, useState } from 'react'
-import Banner from './Banner'
-import { Link } from 'react-router-dom'
-import { User, UserId } from '../contexts/User'
+import React, { useEffect, useState } from 'react';
+import Banner from './Banner';
+import { Link } from 'react-router-dom';
+import { User, UserId } from '../contexts/User';
+import { Container, Button, Typography, Box } from '@mui/material';
 
 const SignUp: React.FC = () => {
-  const [success, setSuccess] = useState<boolean>(false)
-  const [dataRender, setDataRender] = useState<boolean>(false)
-  const [user, setUser] = useState<User | null>(null)
+  const [success, setSuccess] = useState<boolean>(false);
+  const [dataRender, setDataRender] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
 
   const handleSignUp = async () => {
-    const random = Math.floor(Math.random() * 10000000000)
-    const userId = { secret: random, index: 0 } as UserId
-    const newUser = new User(userId)
-    const index = await newUser.signUp()
-    newUser.setIndex(index)
-    setUser(newUser)
-    setSuccess(true)
-  }
+    const random = Math.floor(Math.random() * 10000000000);
+    const userId = { secret: random, index: 0 } as UserId;
+    const newUser = new User(userId);
+    const index = await newUser.signUp();
+    newUser.setIndex(index);
+    setUser(newUser);
+    setSuccess(true);
+  };
 
   useEffect(() => {
     if (success) {
-      setDataRender(true)
-      setSuccess(false)
+      setDataRender(true);
+      setSuccess(false);
     }
-  }, [success])
+  }, [success]);
 
   return (
-    <div className="page-container">
+    <>
       <Banner />
-      <h2 className="page-header">This is Sign Up Page!</h2>
-      <h2 className="page-header">Please sign up with your own secret.</h2>
-      <div className="login-form">
-        <button
-          className="sign-up-button page-button"
-          onClick={() => {
-            handleSignUp()
-          }}
+      <Container
+        maxWidth="sm"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+        }}
+      >
+        <Typography variant="h4" gutterBottom>
+          This is Sign Up Page!
+        </Typography>
+        <Typography variant="h6" gutterBottom>
+          Please sign up with your own secret.
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSignUp}
+          sx={{ marginBottom: '16px' }}
         >
           Sign Up
-        </button>
-      </div>
-      {dataRender && (
-        <div>
-          <div> This is your secret and index: </div>
-          <br />
-          <div> Secret: {user?.userId.secret.toString()} </div>
-          <br />
-          <div> Index: {user?.userId.index.toString()} </div>
-        </div>
-      )}
+        </Button>
+        {dataRender && (
+          <Box sx={{ textAlign: 'center', marginBottom: '16px' }}>
+            <Typography>This is your secret and index:</Typography>
+            <Typography>Secret: {user?.userId.secret.toString()}</Typography>
+            <Typography>Index: {user?.userId.index.toString()}</Typography>
+          </Box>
+        )}
+        <Typography variant="body2">
+          <Link to="/login" style={{ textDecoration: 'none', color: '#1976d2' }}>
+            I already have an account, go Log In
+          </Link>
+        </Typography>
+      </Container>
+    </>
+  );
+};
 
-      <br />
-      <div className="login-link">
-        <Link to="/login">I already have an account, go `Log In`</Link>
-      </div>
-    </div>
-  )
-}
-
-export default SignUp
+export default SignUp;

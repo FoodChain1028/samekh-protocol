@@ -66,6 +66,33 @@ app.post('/api/execute', async (req, res) => {
   }
 })
 
+app.post('/api/query', async (req, res) => {
+  // verify the identity first
+  const { secret, index } = req.body
+  const userIndex = index
+  const treeProof = tree.createProof(userIndex)
+  const identitySecret = poseidon1([secret])
+  const pathElements = treeProof.siblings
+  const identityPathIndex = treeProof.pathIndices
+  const { publicSignals, proof } = await prover.genProof('samekh', {
+    identitySecret,
+    pathElements,
+    identityPathIndex,
+  })
+  const isValid = await prover.verifyProof('samekh', publicSignals, proof)
+
+  if (!isValid) {
+    res.status(400).json({
+      error: 'Invalid proof',
+    })
+  } else {
+    res.json({
+      success: true,
+      account: '0xa5393e569382599f0c3cf1ea5d8d4a1840871a31',
+    })
+  }
+})
+
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`)
 })

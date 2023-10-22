@@ -29,5 +29,6 @@
     "chai": "^4.3.10",
     "lerna": "6.0.1",
     "node-fetch": "^3.3.2"
-  }
+  },
+  "repository": "git@github.com:FoodChain1028/samekh-protocol.git"
 }

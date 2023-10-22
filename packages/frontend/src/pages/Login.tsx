@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import Banner from './Banner'
 import { User } from '../contexts/User'
+import { Container, TextField, Button, Typography } from '@mui/material'
 
 const Login: React.FC = () => {
   const [index, setIndex] = useState<number>(0)
@@ -17,29 +18,39 @@ const Login: React.FC = () => {
     console.log(res)
   }
   return (
-    <div className="page-container">
+    <>
       <Banner />
-      <h2 className="page-header">Login</h2>
-      <div className="login-form">
-        <input
-          type="text"
-          placeholder="Index"
-          className="input-field"
-          value={index}
+      <Container
+        maxWidth="sm"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+        }}
+      >
+        <Typography variant="h4" gutterBottom>
+          Login
+        </Typography>
+        <TextField
+          label="Index"
+          variant="outlined"
           onChange={(e) => setIndex(parseInt(e.target.value))}
+          style={{ marginBottom: '16px', width: '100%' }}
         />
-        <input
+        <TextField
           type="password"
-          placeholder="Secret"
-          className="input-field"
-          value={secret}
+          label="Secret"
+          variant="outlined"
           onChange={(e) => setSecret(parseInt(e.target.value))}
+          style={{ marginBottom: '16px', width: '100%' }}
         />
-        <button className="login-button page-button" onClick={handleExecute}>
-          Log In and Transfer{' '}
-        </button>
-      </div>
-    </div>
+        <Button variant="contained" color="primary" onClick={handleExecute}>
+          Log In and Transfer
+        </Button>
+      </Container>
+    </>
   )
 }
 

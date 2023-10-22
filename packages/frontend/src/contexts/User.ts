@@ -1,4 +1,4 @@
-import { signup, execute } from '../utils'
+import { signup, execute, query } from '../utils'
 
 const endpoint = process.env.REACT_APP_BACKEND_ENDPOINT
 
@@ -27,6 +27,12 @@ export class User {
   async execute(): Promise<any> {
     const url: string = endpoint + 'execute'
     const res = await execute(this.userId, url)
+    return res
+  }
+
+  async query(): Promise<any> {
+    const url: string = endpoint + 'query'
+    const res = await query(this.userId, url)
     return res
   }
 }
