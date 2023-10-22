@@ -1,21 +1,21 @@
 // src/components/Banner.tsx
 
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Banner: React.FC = () => {
-  const [isListVisible, setListVisible] = useState(false);
+  const [isListVisible, setListVisible] = useState(false)
 
   const toggleListVisibility = () => {
-    setListVisible(!isListVisible);
-  };
+    setListVisible(!isListVisible)
+  }
 
   return (
     <div className="banner">
       <button className="list-toggle-button" onClick={toggleListVisibility}>
         ☰
       </button>
-      <h1>samekh-protocol</h1>
+      <h1>𐤎 Samekh Protocol</h1>
       {isListVisible && (
         <div className="list-popup">
           <ul>
@@ -29,11 +29,16 @@ const Banner: React.FC = () => {
                 Dashboard
               </Link>
             </li>
+            <li>
+              <Link to="/login" onClick={toggleListVisibility}>
+                Log In
+              </Link>
+            </li>
           </ul>
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Banner;
+export default Banner

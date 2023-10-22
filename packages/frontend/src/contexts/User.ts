@@ -1,4 +1,4 @@
-import { signup, execute } from "../utils"
+import { signup, execute } from '../utils'
 
 const endpoint = process.env.REACT_APP_BACKEND_ENDPOINT
 
@@ -7,8 +7,8 @@ export interface UserId {
   index: number
 }
 
-class User {
-  private userId: UserId
+export class User {
+  readonly userId: UserId
 
   constructor(userId: UserId) {
     this.userId = userId
